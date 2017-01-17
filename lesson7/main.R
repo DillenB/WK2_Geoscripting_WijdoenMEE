@@ -40,8 +40,8 @@ ndvi <- format_ndvi("grd")
 ndvi_municip <- extract(ndvi, nlMunicipality, fun=mean, na.rm=T, sp=T)
 
   #Calculate max ndvi for January and August
-January <- max_ndvi(ndvi_municip$January, "municipality")
-August <- max_ndvi(ndvi_municip$August, "municipality")
+January <- max_ndvi("January", "municipality")
+August <- max_ndvi("August", "municipality")
 
   #Calculate yearly ndvi for all municipalities
 ndvi_municip$Year <- (ndvi_municip$January + ndvi_municip$February + ndvi_municip$March + ndvi_municip$April +
@@ -49,15 +49,15 @@ ndvi_municip$Year <- (ndvi_municip$January + ndvi_municip$February + ndvi_munici
                       ndvi_municip$September + ndvi_municip$October + ndvi_municip$November + ndvi_municip$December)/12
 
   #Calculate max ndvi for the whole year for the municipalities
-Year <- max_ndvi(ndvi_municip$Year, "municipality")
+Year <- max_ndvi("Year", "municipality")
 
 #Calculate the max ndvi for all Provinces (14 in total)
   #Get ndvi data for provinces
 ndvi_province <- extract(ndvi, nlProvince, fun=mean, na.rm=T, sp=T)
 
   #Calculate max ndvi for January and August
-January_province <- max_ndvi(ndvi_province$January, "province")
-August_province <- max_ndvi(ndvi_province$August, "province")
+January_province <- max_ndvi("January", "province")
+August_province <- max_ndvi("August", "province")
 
   #Calculate yearly ndvi for all provinces
 ndvi_province$Year <- (ndvi_province$January + ndvi_province$February + ndvi_province$March + ndvi_province$April +
@@ -65,10 +65,10 @@ ndvi_province$Year <- (ndvi_province$January + ndvi_province$February + ndvi_pro
                         ndvi_province$September + ndvi_province$October + ndvi_province$November + ndvi_province$December)/12
 
   #Calculate max ndvi for the whole year for the provinces
-Year_province <- max_ndvi(ndvi_province$Year, "province")
+Year_province <- max_ndvi("Year", "province")
 
 #Test wrong input for calculating the max ndvi
-January <- max_ndvi(ndvi_municip$January, "Test wrong")
+January <- max_ndvi("January", "Test wrong")
 
 ##############
 ### Output ###
