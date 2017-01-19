@@ -1,0 +1,94 @@
+---
+title: "Lesson 8"
+author: "Team Wij doen MEE"
+date: "19 januari 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r main, include=FALSE}
+source("main.R")
+```
+
+## Question 1
+### Paired plot of all bands
+
+First outliers of the bands were removed from the histograms and VCF max was set to 100. 
+
+```{r, include = TRUE}
+GewataB1[GewataB1 > 750]   <- NA
+GewataB2[GewataB2 > 1000]  <- NA
+GewataB3[GewataB3 > 1250]  <- NA
+GewataB4[GewataB4 > 4000]  <- NA
+GewataB5[GewataB5 > 3500]  <- NA
+GewataB7[GewataB7 > 2200]  <- NA
+vcfGewata[vcfGewata > 100] <- NA
+```
+
+To check the correlation the bands were bricked and a pairs plot was used.
+
+```{r GewataBrick, include = TRUE}
+pairs(GewataBrick)
+
+```
+
+VCF seems to be quite well correlated with all bands except band 4.
+
+## Question 2
+### Model
+
+
+```{r vcfmodel, include=TRUE}
+summary(vcfmodel)
+```
+All bands are significant and therefore we use all bands in the VCF prediction.
+
+
+## Question 3
+### Plot of the predicted and original VCF rasters
+```{r vcfpred_map, r vcfGewata, echo = FALSE}
+levelplot(stack(vcfpred_map, vcfGewata), main=c("Predicted VCF","Actual VCF"), 
+          col.regions=rev(grDevices::terrain.colors(100)), axes=T)
+```
+
+The prediction is quite accurate, some small differences are visible.
+Extreme values that were out of range (0 <= range <= 100) have been set to NA, this causes
+more white spots to be visible in the predicted VCF.
+
+
+## Question 4
+### Calculation of the RMSE between prediction and actual VCF
+
+```{r rmse_avg, include = TRUE, echo = FALSE}
+paste("The average RMSE of the area is", rmse_avg)
+```
+
+Plotted it looks like this:
+
+```{r rmse_map, include=TRUE, echo = FALSE}
+plot(rmse_map, main="RMSE", axes=TRUE)
+```
+
+## Question 5
+### RMSE of the 3 classes in the trainingpolygons
+
+
+```{r rmse_classes, include = TRUE, echo = TRUE}
+rmse_classes
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
